@@ -18,7 +18,6 @@ jobs:
           name: Docker setup
           command: |
             docker --version # Print Docker version for logging
-            ./set_env.sh # Execute environment script
 
       - run:
           name: Build Docker images
