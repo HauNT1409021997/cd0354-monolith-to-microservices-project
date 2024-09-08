@@ -4,9 +4,6 @@ jobs:
   build:
     docker:
       - image: circleci/node:latest # Use the latest Node.js Docker image
-    services:
-      - docker
-
     steps:
       - checkout # Check out the code
       - run:
