@@ -18,6 +18,8 @@ jobs:
           name: Docker setup
           command: |
             docker --version # Print Docker version for logging
+            sudo systemctl status docker
+            sudo systemctl start docker
 
       - run:
           name: Build Docker images
