@@ -1,0 +1,10 @@
+set POSTGRES_USERNAME=postgres
+set POSTGRES_PASSWORD=test1234
+set POSTGRES_HOST=proj4-nth-db-inst.csv89yk9vb9o.us-east-1.rds.amazonaws.com
+set POSTGRES_DB=postgres
+set AWS_BUCKET=proj4nth
+set AWS_REGION=us-east-1
+set AWS_PROFILE=proj4
+set JWT_SECRET=testing
+set URL=http://localhost:8100
+set NODE_OPTIONS=--openssl-legacy-provider
