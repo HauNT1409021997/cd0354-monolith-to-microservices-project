@@ -1,0 +1,65 @@
+version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: circleci/node:latest # Use the latest Node.js Docker image
+    services:
+      - docker
+
+    steps:
+      - checkout # Check out the code
+      - run:
+          name: Show Node.js version
+          command: node --version # Display Node.js version for logging
+
+      - run:
+          name: Install step
+          command: echo "nothing needs to be installed" # Placeholder install step
+
+      - run:
+          name: Docker setup
+          command: |
+            docker --version # Print Docker version for logging
+            docker rm -f $(docker ps -aq) # Remove all running/stopped containers
+            docker image prune -f -a # Prune all Docker images
+            . ./set_env.sh # Execute environment script
+
+      - run:
+          name: Build Docker images
+          command: docker-compose -f docker-compose-build.yaml build --parallel
+
+      - run:
+          name: Tag Docker images
+          command: |
+            docker tag udagram-api-feed:latest haunt14/udagram-api-feed:latest
+            docker tag udagram-api-user:latest haunt14/udagram-api-user:latest
+            docker tag udagram-frontend:latest haunt14/udagram-frontend:latest
+            docker tag reverseproxy:local haunt14/reverseproxy:latest
+
+  deploy:
+    docker:
+      - image: circleci/node:latest
+
+    steps:
+      - run:
+          name: Docker Hub Login
+          command: |
+            echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+
+      - run:
+          name: Push Docker images
+          command: |
+            docker push haunt14/udagram-api-feed:latest
+            docker push haunt14/udagram-api-user:latest
+            docker push haunt14/udagram-frontend:latest
+            docker push haunt14/reverseproxy:latest
+
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
