@@ -18,9 +18,7 @@ jobs:
           name: Docker setup
           command: |
             docker --version # Print Docker version for logging
-            docker rm -f $(docker ps -aq) # Remove all running/stopped containers
-            docker image prune -f -a # Prune all Docker images
-            . ./set_env.sh # Execute environment script
+            ./set_env.sh # Execute environment script
 
       - run:
           name: Build Docker images
