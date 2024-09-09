@@ -39,6 +39,9 @@ jobs:
     docker:
       - image: circleci/node:latest
 
+      - setup_remote_docker:
+          docker_layer_caching: true
+
     steps:
       - run:
           name: Docker Hub Login
