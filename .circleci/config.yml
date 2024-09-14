@@ -20,6 +20,11 @@ jobs:
           docker_layer_caching: true
 
       - run:
+          name: Docker Hub Login
+          command: |
+            echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+
+      - run:
           name: Build Docker images
           command: |
             docker build -t udagram-api-feed ./udagram-api-feed
@@ -35,19 +40,6 @@ jobs:
             docker tag udagram-frontend:latest haunt14/udagram-frontend:latest
             docker tag udagram-reverseproxy:latest haunt14/reverseproxy:latest
 
-  deploy:
-    docker:
-      - image: circleci/node:latest
-
-    steps:
-      - setup_remote_docker:
-          docker_layer_caching: true
-
-      - run:
-          name: Docker Hub Login
-          command: |
-            echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-
       - run:
           name: Push Docker images
           command: |
@@ -61,6 +53,3 @@ workflows:
   build_and_deploy:
     jobs:
       - build
-      - deploy:
-          requires:
-            - build
