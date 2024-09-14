@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+data:
+  AWS_BUCKET: proj4nth
+  AWS_PROFILE: proj4
+  AWS_REGION: us-east-1
+  JWT_SECRET: testing
+  POSTGRES_DB: postgres
+  POSTGRES_HOST: proj4-nth-db-inst.csv89yk9vb9o.us-east-1.rds.amazonaws.com
+  NODE_OPTIONS: --openssl-legacy-provider
+  URL: http://localhost:8100
+metadata:
+  name: env-config
