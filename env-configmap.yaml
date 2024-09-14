@@ -8,6 +8,6 @@ data:
   POSTGRES_DB: postgres
   POSTGRES_HOST: proj4-nth-db-inst.csv89yk9vb9o.us-east-1.rds.amazonaws.com
   NODE_OPTIONS: --openssl-legacy-provider
-  URL: http://localhost:8100
+  URL: http://adc93e80e40d14870b5c04a2aa6b7b9c-877145531.us-east-1.elb.amazonaws.com:8100
 metadata:
   name: env-config
